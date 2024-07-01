@@ -1,6 +1,7 @@
 import express, { Express } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import logger from "./common/logger.ts";
 
 //  load .env file
 dotenv.config();
@@ -14,5 +15,9 @@ app.use(cors());
 app.use(express.json());
 
 app.listen(port, async () => {
-  console.log(`Server is listening on port ${port}`);
+  try {
+    await logger("server.log", `Server is listening on port ${port}`);
+  } catch (err: any) {
+    console.error(err.message);
+  }
 });
