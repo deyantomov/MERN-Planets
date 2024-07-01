@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import logger from "./logger.ts";
-import { logFileNames } from "../enum/logFileNames.ts";
+import { logFileNames } from "../enums/logFileNames.ts";
 import { modelDir } from "../common/constants.ts";
 
 export default async function readJSON(fileName: string) {

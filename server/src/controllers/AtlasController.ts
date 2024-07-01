@@ -1,8 +1,8 @@
 import { MongoClient, WithId, Document } from "mongodb";
 import logger from "../utils/logger.ts";
 import schemaValidator from "../utils/schemaValidator.ts";
-import { logFileNames } from "../enum/logFileNames.ts";
-import { modelFileNames } from "../enum/modelFileNames.ts";
+import { logFileNames } from "../enums/logFileNames.ts";
+import { modelFileNames } from "../enums/modelFileNames.ts";
 
 type TClient = MongoClient | undefined;
 type TPlanetDataArray = WithId<Document>[];

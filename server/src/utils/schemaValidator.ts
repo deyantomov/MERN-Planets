@@ -1,4 +1,4 @@
-import { logFileNames } from "../enum/logFileNames.ts";
+import { logFileNames } from "../enums/logFileNames.ts";
 import logger from "./logger.ts";
 import readJSON from "./readJSON.ts";
 

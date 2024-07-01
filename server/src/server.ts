@@ -2,7 +2,7 @@ import express, { Express } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import logger from "./utils/logger.ts";
-import AtlasController from "./controller/AtlasController.ts";
+import homeRouter from "./routes/index.ts";
 
 //  load .env file
 dotenv.config();
@@ -15,14 +15,17 @@ const app: Express = express();
 app.use(cors());
 app.use(express.json());
 
+//  app configuration (routes)
+app.use("/", homeRouter);
+
 app.listen(port, async () => {
   try {
     await logger("server.log", `Server is listening on port ${port}.`);
 
-    const c = new AtlasController();
-    const planetRecords = await c.getAllPlanetRecords();
+    // const c = new AtlasController();
+    // const planetRecords = await c.getAllPlanetRecords();
 
-    console.log(planetRecords);
+    // console.log(planetRecords);
   } catch (err: any) {
     console.error(err.message);
   }
