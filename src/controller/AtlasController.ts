@@ -1,8 +1,9 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, WithId, Document } from "mongodb";
 import logger from "../common/logger.ts";
 import { logFileNames } from "../enums/logFileNames.ts";
 
 type TClient = MongoClient | undefined;
+type TPlanetData = WithId<Document>[];
 
 export default class AtlasController {
   private _atlasUri: string;
@@ -41,7 +42,37 @@ export default class AtlasController {
     } catch (err: any) {
       await logger(logFileNames.DB, err.message);
     } finally {
-      this._closeAtlasConnection();
+      await this._closeAtlasConnection();
+    }
+  }
+
+  public async getAllPlanetRecords(): Promise<TPlanetData | void> {
+    try {
+      this._validateClient(this._client);
+
+      //  connect to Atlas
+      this._client?.connect();
+
+      //  if client is not falsy, grab all planet records and cast the returned cursor to an array
+      const planetData =
+        this._client &&
+        (await this._client
+          .db("sample_guides")
+          .collection("planets")
+          .find()
+          .toArray());
+
+      this._validatePlanetData(planetData);
+
+      logger(
+        logFileNames.DB,
+        "Successfully grabbed data about all of the planets in the solar system"
+      );
+      return planetData;
+    } catch (err: any) {
+      logger(logFileNames.DB, err.message);
+    } finally {
+      await this._closeAtlasConnection();
     }
   }
 
@@ -63,6 +94,18 @@ export default class AtlasController {
     if (!client) {
       throw new Error("Client not connected.");
     }
+  }
+
+  private _validatePlanetData(data: TPlanetData | undefined) {
+    if (!data) {
+      throw new Error("Data is undefined.");
+    }
+
+    if (data.length <= 0) {
+      throw new Error("Couldn't grab planet data.");
+    }
+
+    //  TODO: Create schema to further validate planet data
   }
 
   /**
