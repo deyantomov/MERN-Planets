@@ -46,6 +46,10 @@ export default class AtlasController {
     }
   }
 
+  /**
+   * Gets records for all the planets in the solar system from the database
+   * @async
+   */
   public async getAllPlanetRecords(): Promise<TPlanetData | void> {
     try {
       this._validateClient(this._client);
@@ -96,6 +100,10 @@ export default class AtlasController {
     }
   }
 
+  /**
+   * Validates planet data (incomplete)
+   * @param data Data to validate
+   */
   private _validatePlanetData(data: TPlanetData | undefined) {
     if (!data) {
       throw new Error("Data is undefined.");
