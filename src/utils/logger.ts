@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { logDir } from "./constants.ts";
+import { logDir } from "../common/constants.ts";
 
 /**
  * Takes a file name and a message and logs the message to the console, then saves it to the specified file

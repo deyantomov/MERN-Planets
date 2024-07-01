@@ -1,8 +1,10 @@
 import express, { Express } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import logger from "./common/logger.ts";
+import logger from "./utils/logger.ts";
 import AtlasController from "./controller/AtlasController.ts";
+import schemaValidator from "./utils/schemaValidator.ts";
+import { modelFileNames } from "./enum/modelFileNames.ts";
 
 //  load .env file
 dotenv.config();
@@ -23,6 +25,13 @@ app.listen(port, async () => {
     const planetRecords = await c.getAllPlanetRecords();
 
     console.log(planetRecords);
+
+    //  O(n^2) complexity for array schema validations
+    if (planetRecords) {
+      planetRecords.forEach(async (record, index) => {
+        console.log(await schemaValidator(modelFileNames.PLANET_RECORD, record, index));
+      });
+    }
   } catch (err: any) {
     console.error(err.message);
   }

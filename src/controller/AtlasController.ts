@@ -1,6 +1,6 @@
 import { MongoClient, WithId, Document } from "mongodb";
-import logger from "../common/logger.ts";
-import { logFileNames } from "../enums/logFileNames.ts";
+import logger from "../utils/logger.ts";
+import { logFileNames } from "../enum/logFileNames.ts";
 
 type TClient = MongoClient | undefined;
 type TPlanetData = WithId<Document>[];
@@ -70,7 +70,7 @@ export default class AtlasController {
 
       logger(
         logFileNames.DB,
-        "Successfully grabbed data about all of the planets in the solar system"
+        "Successfully grabbed data about all of the planets in the solar system."
       );
       return planetData;
     } catch (err: any) {

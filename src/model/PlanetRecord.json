@@ -1,0 +1,26 @@
+{
+  "bsontype": "object",
+  "required": ["name", "orderFromSun", "hasRings"],
+  "properties": {
+    "name": {
+      "bsonType": "string",
+      "description": "Name of the planet - Required."
+    },
+    "orderFromSun": {
+      "bsonType": "int",
+      "description": "How close the planet is to the sun relative to the others - Required."
+    },
+    "hasRings": {
+      "bsonType": "boolean",
+      "description": "Whether the planet has rings around it - Required."
+    },
+    "mainAtmosphere": {
+      "bsonType": ["string"],
+      "description": "How close the planet is to the sun relative to the others - Optional."
+    },
+    "surfaceTemperatureC": {
+      "bsonType": "object",
+      "description": "The minimum, maximum, and average temperatures of the planet in celsius = Optional."
+    }
+  }
+}
