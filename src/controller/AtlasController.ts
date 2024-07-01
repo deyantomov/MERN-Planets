@@ -1,9 +1,11 @@
 import { MongoClient, WithId, Document } from "mongodb";
 import logger from "../utils/logger.ts";
+import schemaValidator from "../utils/schemaValidator.ts";
 import { logFileNames } from "../enum/logFileNames.ts";
+import { modelFileNames } from "../enum/modelFileNames.ts";
 
 type TClient = MongoClient | undefined;
-type TPlanetData = WithId<Document>[];
+type TPlanetDataArray = WithId<Document>[];
 
 export default class AtlasController {
   private _atlasUri: string;
@@ -50,7 +52,7 @@ export default class AtlasController {
    * Gets records for all the planets in the solar system from the database
    * @async
    */
-  public async getAllPlanetRecords(): Promise<TPlanetData | void> {
+  public async getAllPlanetRecords(): Promise<TPlanetDataArray | void> {
     try {
       this._validateClient(this._client);
 
@@ -101,10 +103,10 @@ export default class AtlasController {
   }
 
   /**
-   * Validates planet data (incomplete)
+   * Validates planet data
    * @param data Data to validate
    */
-  private _validatePlanetData(data: TPlanetData | undefined) {
+  private _validatePlanetData(data: TPlanetDataArray | undefined) {
     if (!data) {
       throw new Error("Data is undefined.");
     }
@@ -113,7 +115,13 @@ export default class AtlasController {
       throw new Error("Couldn't grab planet data.");
     }
 
-    //  TODO: Create schema to further validate planet data
+    //  O(n^2)
+    data.forEach(async (record, index) => {
+      const result = await schemaValidator(modelFileNames.PLANET_RECORD, record, index);
+      if (!result) {
+        throw new Error("Data is missing required fields.");
+      }
+    });
   }
 
   /**

@@ -9,7 +9,7 @@ export default async function schemaValidator(schemaFileName: string, objectToVa
     
     required.forEach((key: string) => {
       if (!keys.includes(key)) {
-      throw new Error(`Object at index ${index} is missing a required key: ${key}`);
+        throw new Error(`Object at index ${index} is missing a required key: ${key}`);
       }
     });
 
