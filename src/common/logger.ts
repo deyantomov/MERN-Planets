@@ -2,7 +2,14 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { logDir } from "./constants.ts";
 
-export default async function logger(fileName: string, message: string) {
+/**
+ * Takes a file name and a message and logs the message to the console, then saves it to the specified file
+ * 
+ * @async
+ * @param fileName Log file name (comes from an enumerator) 
+ * @param message Message to log
+ */
+export default async function logger(fileName: string, message: string): Promise<void> {
   try {
     console.log(message);
     await fs.mkdir(logDir, { recursive: true });
