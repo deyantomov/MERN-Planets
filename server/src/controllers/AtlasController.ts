@@ -1,8 +1,6 @@
 import { MongoClient, WithId, Document } from "mongodb";
 import logger from "../utils/logger.ts";
-import schemaValidator from "../utils/schemaValidator.ts";
 import { logFileNames } from "../enums/logFileNames.ts";
-import { modelFileNames } from "../enums/modelFileNames.ts";
 
 type TClient = MongoClient | undefined;
 type TPlanetDataArray = WithId<Document>[];
@@ -114,14 +112,6 @@ export default class AtlasController {
     if (data.length <= 0) {
       throw new Error("Couldn't grab planet data.");
     }
-
-    //  O(n^2)
-    data.forEach(async (record, index) => {
-      const result = await schemaValidator(modelFileNames.PLANET_RECORD, record, index);
-      if (!result) {
-        throw new Error("Data is missing required fields.");
-      }
-    });
   }
 
   /**

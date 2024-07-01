@@ -21,11 +21,6 @@ app.use("/", homeRouter);
 app.listen(port, async () => {
   try {
     await logger("server.log", `Server is listening on port ${port}.`);
-
-    // const c = new AtlasController();
-    // const planetRecords = await c.getAllPlanetRecords();
-
-    // console.log(planetRecords);
   } catch (err: any) {
     console.error(err.message);
   }
