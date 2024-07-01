@@ -1,0 +1,32 @@
+{
+  "name": "mern-planets",
+  "version": "1.0.0",
+  "description": "A full-stack MERN application which uses data from a sample MDB cluster",
+  "main": "dist/server.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --build tsconfig.json",
+    "start": "node dist/server.js",
+    "dev": "nodemon --exec node --loader ts-node/esm src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/mongodb": "^4.0.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb": "^6.8.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.9",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "tsc": "^2.0.4",
+    "typescript": "^5.5.2"
+  }
+}
