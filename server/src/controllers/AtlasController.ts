@@ -64,6 +64,7 @@ export default class AtlasController {
           .db("sample_guides")
           .collection("planets")
           .find()
+          .sort({ orderFromSun: 1 })
           .toArray());
 
       this._validatePlanetData(planetData);
