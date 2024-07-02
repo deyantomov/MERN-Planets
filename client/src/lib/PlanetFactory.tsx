@@ -2,7 +2,9 @@ import { Vector3 } from "three";
 import Mercury from "../components/planets/Mercury";
 import Venus from "../components/planets/Venus";
 import Earth from "../components/planets/Earth";
+import PlanetWithTitle from "../components/planets/PlanetWithTitle";
 import { TPlanet } from "../types/Planet";
+import { ThreeEvent } from "@react-three/fiber";
 
 export default class PlanetFactory {
   private _planetComponents: Map<string, TPlanet> = new Map<string, TPlanet>();
@@ -30,8 +32,14 @@ export default class PlanetFactory {
         default:
           position = new Vector3();
       }
-
-      return <Component key={key} position={position} onClick={() => console.log(key)}/>;
+  
+      const planetProps = {
+        onClick: (e: ThreeEvent<MouseEvent>) => {
+          console.log(e);
+          console.log(key);
+        }
+      }
+      return <PlanetWithTitle key={key} name={key} Planet={Component} position={position} props={planetProps} />;
     });
   }
 }
