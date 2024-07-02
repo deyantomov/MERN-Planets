@@ -39,6 +39,7 @@ export default class PlanetFactory {
           console.log(key);
         }
       }
+      
       return <PlanetWithTitle key={key} name={key} Planet={Component} position={position} props={planetProps} />;
     });
   }
