@@ -7,7 +7,7 @@ export default function Venus(props: ThreeElements["mesh"]): React.ReactNode {
 
   return (
     <mesh {...props}>
-      <sphereGeometry args={[0.09, 32, 32]} />
+      <sphereGeometry args={[0.45, 32, 32]} />
       <meshStandardMaterial
         map={colorMap}
         displacementMap={heightMap}
