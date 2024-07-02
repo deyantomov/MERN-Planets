@@ -2,7 +2,7 @@ import logger from "../utils/logger.ts";
 import { logFileNames } from "../enums/logFileNames.ts";
 import AtlasController from "./AtlasController.ts";
 import { TPlanetDataArray } from "../types/Planet.ts";
-import { planetSizes } from "../common/constants.ts";
+import { planetCoords } from "../common/constants.ts";
 
 export default class PlanetController {
   private static _names: TPlanetDataArray | void = undefined;
@@ -17,7 +17,7 @@ export default class PlanetController {
     const coordObj: { [key: string]: number[] } = {};
   
     for (const planet of PlanetController._names as TPlanetDataArray) {
-      coordObj[planet.name] = (planetSizes as { [key: string]: number[] })[planet.name];
+      coordObj[planet.name] = (planetCoords as { [key: string]: number[] })[planet.name];
     }
   
     return coordObj;
