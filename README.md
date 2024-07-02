@@ -2,7 +2,7 @@
 
 
 ## 1. About the Project
-MERN Planets is a full-stack application which uses data from a sample MDB cluster built using the MERN stack that provides information about the planets in the solar system. It uses a lot of additional libraries, like Redux for state management, and three, React-Three-Fiber, and drei for 3D visualization.
+MERN Planets is a full-stack application which uses data from a sample MDB cluster. Built using the MERN stack, it provides information about the planets in the solar system. The application uses a lot of additional libraries, like Redux for state management, and three, React-Three-Fiber, and drei for 3D visualization.
 
 ## 2. Target Features
 - **Smooth experience**: A smooth 3D interface running at 60FPS, and a table view for data visualization.
