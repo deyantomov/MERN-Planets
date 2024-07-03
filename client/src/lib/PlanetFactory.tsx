@@ -21,7 +21,7 @@ export default class PlanetFactory {
       
       switch (key) {
         case "Mercury":
-          position = new Vector3(6, 8, 5);
+          position = new Vector3(1, 0, 0);
           break;
         case "Venus":
           position = new Vector3(7, 9, 5);

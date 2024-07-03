@@ -55,9 +55,9 @@ export default function Home(): React.ReactNode {
       style={{
         background: "rgba(0,0,0,1) 100%",
       }}
-      camera={{ position: [10, 10, 10], fov: 90 }}
+      camera={{ position: [30, 0, 0], fov: 90 }}
     >
-      <Stars saturation={1} />
+      {/* <Stars saturation={1} /> */}
       <ambientLight intensity={0.15} />
       <OrbitControls />
       <Sun position={[0, 0, 0]} />
