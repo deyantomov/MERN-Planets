@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loader/Loader";
+import Table from "../../components/Table";
 import { fetchAllPlanetData } from "../../api/fetchData";
+import { columns } from "../../common/constants";
 
 interface IPlanetData {
   name: string,
@@ -18,19 +20,16 @@ interface IPlanetData {
 export default function Data() {
   const [planetData, setPlanetData] = useState<IPlanetData[]>([]);
   const [triggerFetch, setTriggerFetch] = useState(true);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const TdStyle = {
-    ThStyle: `w-1/6 min-w-[160px] border border-gray-300 bg-gray-300/70 py-4 px-3 text-lg font-medium text-black lg:px-4`,
-    TdStyle: `text-dark border border-gray-300 bg-gray-100 py-5 px-2 text-center text-base font-medium`,
-    TdStyle2: `text-dark border border-gray-300 bg-white py-5 px-2 text-center text-base font-medium`,
-  };
-  
   useEffect(() => {
     if (planetData.length > 0) {
       setTriggerFetch(false);
+      setLoading(false);
     } else {
       setTriggerFetch(true);
+      setLoading(true);
     }
   }, [planetData]);
 
@@ -44,13 +43,15 @@ export default function Data() {
         /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
       } catch (err: any) {
         console.error(err.message);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, [triggerFetch]);
 
-  if (planetData.length === 0) {
+  if (loading) {
     return <Loader />;
   }
 
@@ -68,59 +69,7 @@ export default function Data() {
                 <button className="bg-red-500 text-white rounded-xl p-3 mb-6" onClick={handleClick}>
                   Go back
                 </button>
-                <table className="w-full table-auto">
-                  <thead className="text center bg-primary">
-                    <tr>
-                      <th className={TdStyle.ThStyle}>Name</th>
-                      <th className={TdStyle.ThStyle}>Order from sun</th>
-                      <th className={TdStyle.ThStyle}>Has rings</th>
-                      <th className={TdStyle.ThStyle}>Main Atmosphere</th>
-                      <th className={TdStyle.ThStyle}>
-                        Min surface temperature &deg;C
-                      </th>
-                      <th className={TdStyle.ThStyle}>
-                        Max surface temperature &deg;C
-                      </th>
-                      <th className={TdStyle.ThStyle}>
-                        Avg surface temperature &deg;C
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {planetData.length > 0 ? (
-                      planetData.map((planet, index) => {
-                        return (
-                          <tr>
-                            <td className={index % 2 !== 0 ? TdStyle.TdStyle : TdStyle.TdStyle2}>
-                              {planet.name || "N/A"}
-                            </td>
-                            <td className={index % 2 !== 0 ? TdStyle.TdStyle : TdStyle.TdStyle2}>
-                              {planet.orderFromSun || "N/A"}
-                            </td>
-                            <td className={index % 2 !== 0 ? TdStyle.TdStyle : TdStyle.TdStyle2}>
-                              {planet.hasRings ? "Yes" : "No"}
-                            </td>
-                            <td className={index % 2 !== 0 ? TdStyle.TdStyle : TdStyle.TdStyle2}>
-                              {planet.mainAtmosphere.join(", ") || "N/A"}
-                            </td>
-                            <td className={index % 2 !== 0 ? TdStyle.TdStyle : TdStyle.TdStyle2}>
-                              {planet.surfaceTemperatureC.min || "N/A"}
-                            </td>
-                            <td className={index % 2 !== 0 ? TdStyle.TdStyle : TdStyle.TdStyle2}>
-                              {planet.surfaceTemperatureC.max || "N/A"}
-                            </td>
-                            <td className={index % 2 !== 0 ? TdStyle.TdStyle : TdStyle.TdStyle2}>
-                              {planet.surfaceTemperatureC.mean || "N/A"}
-                            </td>
-                          </tr>
-                        );
-                      })) : (
-                        <tr>
-                          <td colSpan={7}>No data found.</td>
-                        </tr>
-                    )}
-                  </tbody>
-                </table>
+                <Table columns={columns} data={planetData}/>
               </div>
             </div>
           </div>

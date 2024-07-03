@@ -1,9 +1,10 @@
-import { MongoClient, WithId, Document } from "mongodb";
+import { MongoClient } from "mongodb";
 import logger from "../utils/logger.ts";
 import { logFileNames } from "../enums/logFileNames.ts";
+import { TPlanetDataArray } from '../types/Planet.ts';
 
 type TClient = MongoClient | undefined;
-type TPlanetDataArray = WithId<Document>[];
+
 
 export default class AtlasController {
   private _atlasUri: string;
@@ -50,22 +51,26 @@ export default class AtlasController {
    * Gets records for all the planets in the solar system from the database
    * @async
    */
-  public async getAllPlanetRecords(): Promise<TPlanetDataArray | void> {
+  public async getAllPlanetRecords(methods: ((q?: any) => any)[] = []): Promise<TPlanetDataArray | void> {
     try {
       this._validateClient(this._client);
 
       //  connect to Atlas
       this._client?.connect();
 
-      //  if client is not falsy, grab all planet records and cast the returned cursor to an array
-      const planetData =
+      let q =
         this._client &&
-        (await this._client
+        (this._client
           .db("sample_guides")
           .collection("planets")
           .find()
-          .toArray());
+          .sort({ orderFromSun: 1 }));
 
+      methods.forEach((method) => {
+        q = method(q);
+      });
+
+      const planetData: TPlanetDataArray = await q?.toArray() as TPlanetDataArray;
       this._validatePlanetData(planetData);
 
       logger(
