@@ -9,7 +9,7 @@ export default function Sun(props: ThreeElements["mesh"]): React.ReactNode {
       <ambientLight intensity={0.2} />
       <directionalLight />
       <mesh {...props}>
-        <sphereGeometry args={[10, 64, 64]} />
+        <sphereGeometry args={[4, 64, 64]} />
         <meshStandardMaterial
           map={colorMap}
           color={"yellow"}

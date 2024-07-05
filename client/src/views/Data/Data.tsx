@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
-import Table from "../../components/Table";
+import Table from "../../components/Table/Table";
 import { fetchAllPlanetData } from "../../api/fetchData";
 import { columns } from "../../common/constants";
 

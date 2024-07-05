@@ -9,23 +9,26 @@ export default function Mercury(props: MeshProps): React.ReactNode {
   const [heightMap] = useTexture(["mercurybump.jpg"]);
 
   const mercuryBlue = new THREE.Color(0x325188);
-  const orbitR = 8; // radius
+  const orbitR = 3; // radius
   const orbitV = 0.2;  // velocity
 
   const phaseOffsetX = 0;
   const phaseOffsetZ = 0;
 
   useFrame(({ clock }) => {
-    //  orbit rotation
     if (mercuryRef.current) {
+      //  orbit rotation
       mercuryRef.current.position.x = Math.cos(clock.getElapsedTime() * orbitV + phaseOffsetX) * (2 * orbitR);
       mercuryRef.current.position.z = Math.sin(clock.getElapsedTime() * orbitV + phaseOffsetZ) * (2 * orbitR);
+    
+      //  axis rotation
+      mercuryRef.current.rotation.y += 0.005;
     }
-  })
+  });
 
   return (
     <mesh castShadow ref={mercuryRef} {...props}>
-      <sphereGeometry args={[0.15, 32, 32]} />
+      <sphereGeometry args={[0.4, 32, 32]} />
       <meshStandardMaterial
         map={colorMap}
         displacementMap={heightMap}
