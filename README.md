@@ -6,7 +6,7 @@
 MERN Planets is a full-stack application which uses data from a sample MDB cluster. Built using the MERN stack, it provides information about the planets in the solar system. The application is based on the MVC architecture and uses a lot of additional libraries like Redux for state management, axios for HTTP requests, and React-Three-Fiber and drei for 3D visualization. The project is not a simulation, and it's not intended to be an accurate representation of the solar system. This is just a proof of concept.
 
 ## 2. Target Features
-- **Smooth experience**: A smooth 3D interface running at 60FPS, and fast loading times.
+- **Smooth experience**: A smooth 3D interface running at 60FPS and fast loading times.
 - **Small dataset**: The only data that is needed is about the 8 planets in the solar system so the data set shouldn't be big.
 - **Administrative part**: A way to not only read, but also edit and write data.
 
