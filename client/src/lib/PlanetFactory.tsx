@@ -7,9 +7,7 @@ import Jupiter from "../components/planets/Jupiter";
 import Saturn from "../components/planets/Saturn";
 import Uranus from "../components/planets/Uranus";
 import Neptune from "../components/planets/Neptune";
-import PlanetWithTitle from "../components/planets/PlanetWithTitle";
 import { TPlanet } from "../types/Planet";
-import { ThreeEvent } from "@react-three/fiber";
 
 export default class PlanetFactory {
   private _planetComponents: Map<string, TPlanet> = new Map<string, TPlanet>();
@@ -57,15 +55,8 @@ export default class PlanetFactory {
         default:
           position = new Vector3();
       }
-  
-      const planetProps = {
-        onClick: (e: ThreeEvent<MouseEvent>) => {
-          console.log(e);
-          console.log(key);
-        }
-      }
       
-      return <PlanetWithTitle key={key} name={key} Planet={Component} position={position} props={planetProps} />;
+      return <Component key={key} name={key} position={position} />;
     });
   }
 }

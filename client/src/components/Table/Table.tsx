@@ -31,7 +31,6 @@ export default function Table({ columns, data }: TableProps) {
           <tr key={index}>
             {columns.map((col) => (
               <td key={col.key} className={index % 2 !== 0 ? col.tdStyle : col.tdStyleAlt}>
-                {console.log(row[col.key])}
                 {col.render ? col.render(row[col.key], row) : row[col.key] !== undefined ? row[col.key].toString() : "N/A"}
               </td>
             ))}

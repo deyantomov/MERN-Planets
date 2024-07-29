@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import cors from "cors";
 import logger from "./utils/logger.ts";
 import homeRouter from "./routes/index.ts";
-import coordinatesRouter from "./routes/coords/coordinates.ts";
 
 //  load .env file
 dotenv.config();
@@ -17,8 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 //  app configuration (routes)
-app.use("/", homeRouter);
-app.use("/coordinates", coordinatesRouter);
+app.use("/api", homeRouter);
 
 app.listen(port, async () => {
   try {

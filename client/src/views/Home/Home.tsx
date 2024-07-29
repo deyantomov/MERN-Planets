@@ -1,23 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stars, Html } from "@react-three/drei";
 import Sun from "../../components/planets/Sun";
 import PlanetFactory from "../../lib/PlanetFactory";
-import { fetchPlanetCoordinates } from "../../api/fetchData";
-import Loader from "../../components/Loader/Loader";
-
-/* eslint-disable-next-line */
-const selectCoordinates = (state: any) => state.coordinates.coordinates;
 
 export default function Home(): React.ReactNode {
   const [isPressed, setIsPressed] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const coordinates = useSelector(selectCoordinates);
   const planetFactory = new PlanetFactory();
 
   const handleClick = () => {
@@ -30,24 +21,6 @@ export default function Home(): React.ReactNode {
       setPosition({ x: e.clientX, y: e.clientY });
     }
   };
-
-  useEffect(() => {
-    const getPlanetCoords = async () => {
-      setLoading(true);
-      await fetchPlanetCoordinates(dispatch);
-      setLoading(false);
-    }
-
-    getPlanetCoords();
-  }, [dispatch]);
-
-  useEffect(() => {
-    console.log(coordinates.data);
-  }, [dispatch]);
-
-  if (loading) {
-    return <Loader />;
-  }
 
   return (
     <div onMouseDown={handleMiddleButtonClick} className="w-full h-full">
